@@ -5,7 +5,6 @@ const cors = require("cors");
 const { Resend } = require("resend");
 console.log("BOOT_KAO_API_v1");
 
-
 dotenv.config();
 
 const app = express();
