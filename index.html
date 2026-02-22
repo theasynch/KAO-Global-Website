@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAO Global | Home</title>
+  <meta
+    name="description"
+    content="KAO Global Consulting delivers end-to-end IT infrastructure, advanced networking, and secure technology integrations."
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
+            body: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"]
+          },
+          colors: {
+            ink: "#0B0F19",
+            mist: "#F5F7FA",
+            steel: "#4B5563",
+            accent: "#CC1717"
+          }
+        }
+      }
+    };
+  </script>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .kao-logo {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      line-height: 1;
+    }
+
+    .kao-word {
+      display: inline-flex;
+      align-items: flex-end;
+      font-family: "Agrandir Grand", "Agrandir", "Poppins", "Helvetica Neue", Arial, sans-serif;
+      font-size: clamp(1.95rem, 2.3vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      color: #0b0f19;
+    }
+
+    .kao-word .o {
+      display: inline-block;
+      width: 0.96em;
+      height: 0.96em;
+      margin-left: 0.06em;
+      border: 0.11em solid #cc1717;
+      border-radius: 999px;
+      transform: translateY(-0.02em);
+      overflow: hidden;
+      text-indent: -9999px;
+    }
+
+    .kao-sub {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.34em;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    a,
+    button,
+    input {
+      transition-duration: 420ms !important;
+      transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+    }
+
+    .fluid-bg {
+      position: absolute;
+      inset: -26% -12%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      transform: translate3d(var(--fluid-x, 0px), var(--fluid-y, 0px), 0);
+      filter: saturate(112%);
+      will-change: transform;
+    }
+
+    .fluid-blob {
+      position: absolute;
+      border-radius: 52% 48% 37% 63% / 41% 59% 38% 62%;
+      background: radial-gradient(circle at 30% 30%, rgba(204, 23, 23, 0.35), rgba(204, 23, 23, 0) 68%);
+      filter: blur(3px);
+      mix-blend-mode: multiply;
+      animation: fluidDrift 18s cubic-bezier(0.42, 0, 0.2, 1) infinite alternate,
+        fluidMorph 14s ease-in-out infinite;
+      will-change: transform, border-radius, opacity;
+    }
+
+    .fluid-blob-a {
+      width: 55vmax;
+      height: 55vmax;
+      top: -3%;
+      left: -4%;
+      opacity: 0.66;
+    }
+
+    .fluid-blob-b {
+      width: 47vmax;
+      height: 47vmax;
+      right: -3%;
+      top: -14%;
+      opacity: 0.58;
+      animation-duration: 22s, 17s;
+      animation-delay: -6s, -3s;
+    }
+
+    .fluid-blob-c {
+      width: 51vmax;
+      height: 51vmax;
+      right: -9%;
+      bottom: -10%;
+      opacity: 0.62;
+      animation-duration: 26s, 19s;
+      animation-delay: -9s, -5s;
+    }
+
+    @keyframes fluidDrift {
+      0% {
+        transform: translate3d(-4%, -3%, 0) scale(0.94) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(6%, 4%, 0) scale(1.08) rotate(12deg);
+      }
+    }
+
+    @keyframes fluidMorph {
+      0% {
+        border-radius: 52% 48% 37% 63% / 41% 59% 38% 62%;
+      }
+      50% {
+        border-radius: 41% 59% 58% 42% / 63% 45% 55% 37%;
+      }
+      100% {
+        border-radius: 58% 42% 49% 51% / 38% 62% 40% 60%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fluid-bg {
+        transform: none;
+      }
+
+      .fluid-blob {
+        animation: none;
+      }
+    }
+
+    .pillar-grid {
+      perspective: 1000px;
+    }
+
+    .pillar-card {
+      position: relative;
+      min-height: 220px;
+    }
+
+    .pillar-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .pillar-card:hover .pillar-inner,
+    .pillar-card:focus-within .pillar-inner {
+      transform: rotateY(180deg);
+    }
+
+    .pillar-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid rgb(226 232 240);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 20px 45px rgba(2, 6, 23, 0.06);
+    }
+
+    .pillar-back {
+      transform: rotateY(180deg);
+      border-color: rgba(204, 23, 23, 0.26);
+      background: linear-gradient(150deg, rgba(204, 23, 23, 0.1), rgba(255, 255, 255, 0.98));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pillar-inner {
+        transition: none;
+      }
+
+      .pillar-card:hover .pillar-inner,
+      .pillar-card:focus-within .pillar-inner {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-mist text-ink font-body antialiased">
+  <div class="relative">
+
+    <header class="relative border-b border-slate-200/70 bg-white/90 backdrop-blur">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8" aria-label="Main">
+        <a href="index.html" class="kao-logo" aria-label="KAO Global Consulting Home">
+          <span class="kao-word" aria-hidden="true">
+            <span>K</span><span>A</span><span class="o">O</span>
+          </span>
+          <span class="kao-sub">GLOBAL CONSULTING</span>
+        </a>
+
+        <button
+          id="menuButton"
+          class="inline-flex items-center rounded-md border border-slate-300 px-3 py-2 text-sm font-medium md:hidden"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          Menu
+        </button>
+
+        <ul class="hidden items-center gap-8 text-sm font-medium md:flex">
+          <li><a class="transition hover:text-accent" href="About Us/index.html">About Us</a></li>
+          <li><a class="transition hover:text-accent" href="events/index.html">Events</a></li>
+          <li><a class="transition hover:text-accent" href="#">Blog</a></li>
+          <li><a class="transition hover:text-accent" href="#">Contact</a></li>
+          <li><a class="rounded-full bg-ink px-4 py-2 text-white transition hover:bg-accent" href="#">Log In / Sign Up</a></li>
+        </ul>
+      </nav>
+
+      <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white md:hidden">
+        <ul class="mx-auto flex max-w-6xl flex-col px-5 py-3 text-sm font-medium md:px-8">
+          <li><a class="block rounded-md px-2 py-2 transition hover:bg-slate-100" href="About Us/index.html">About Us</a></li>
+          <li><a class="block rounded-md px-2 py-2 transition hover:bg-slate-100" href="events/index.html">Events</a></li>
+          <li><a class="block rounded-md px-2 py-2 transition hover:bg-slate-100" href="#">Blog</a></li>
+          <li><a class="block rounded-md px-2 py-2 transition hover:bg-slate-100" href="#">Contact</a></li>
+          <li><a class="mt-2 block rounded-md bg-ink px-2 py-2 text-center text-white transition hover:bg-accent" href="#">Log In / Sign Up</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="relative isolate overflow-hidden" data-fluid-hero>
+      <div class="fluid-bg" aria-hidden="true">
+        <span class="fluid-blob fluid-blob-a"></span>
+        <span class="fluid-blob fluid-blob-b"></span>
+        <span class="fluid-blob fluid-blob-c"></span>
+      </div>
+      <div class="pointer-events-none absolute -top-24 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-red-100/70 blur-3xl"></div>
+      <main class="relative z-10 mx-auto grid max-w-6xl gap-14 px-5 py-14 md:grid-cols-2 md:items-center md:gap-10 md:px-8 md:py-20">
+      <section>
+        <p class="mb-4 inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-accent ring-1 ring-red-200">
+          IT Infrastructure & Integration
+        </p>
+        <h1 class="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+          Streamlining System Design & Execution Enablement.
+        </h1>
+        <p class="mt-5 max-w-xl text-base leading-7 text-steel sm:text-lg">
+          KAO Global Consulting Private Limited is your trusted partner for end-to-end IT infrastructure, advanced networking, and secure technology integrations. We bridge the gap between complex technical advisory and seamless, boots-on-the-ground deployment.
+        </p>
+
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center rounded-xl bg-ink px-6 py-3 text-sm font-semibold text-white transition duration-500 ease-out hover:bg-accent focus:outline-none focus:ring-2 focus:ring-red-300"
+          >
+            Explore Our Solutions
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-ink transition duration-500 ease-out hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-red-200"
+          >
+            Partner With Us
+          </a>
+        </div>
+
+        <form id="notifyForm" class="mt-8 flex flex-col gap-3 sm:flex-row" aria-label="Subscribe for updates">
+          <label class="sr-only" for="email">Email address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="Enter your work email"
+            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-500 ease-out focus:border-accent focus:ring-2 focus:ring-red-200"
+          />
+          <button
+            id="notifyButton"
+            type="submit"
+            class="rounded-xl bg-ink px-6 py-3 text-sm font-semibold text-white transition duration-500 ease-out hover:bg-accent focus:outline-none focus:ring-2 focus:ring-red-300"
+          >
+            Notify Me
+          </button>
+        </form>
+        <p id="notifyStatus" class="mt-3 text-sm text-steel" role="status" aria-live="polite"></p>
+
+      </section>
+
+      <section class="relative">
+        <div class="rounded-3xl bg-white p-6 shadow-[0_20px_60px_rgba(2,6,23,0.08)] ring-1 ring-slate-200 sm:p-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Delivery Focus</p>
+          <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight">Infrastructure, Networks, and Secure Deployments</h2>
+          <p class="mt-3 text-sm leading-6 text-steel">
+            We deliver integrated systems from architecture to implementation, ensuring resilient performance across enterprise and public-sector environments.
+          </p>
+
+          <dl class="mt-6 grid grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-slate-50 p-4">
+              <dt class="text-steel">Infrastructure Delivery</dt>
+              <dd class="mt-1 text-xl font-semibold text-ink">End-to-End</dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-4">
+              <dt class="text-steel">Networking Expertise</dt>
+              <dd class="mt-1 text-xl font-semibold text-ink">Advanced</dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-4">
+              <dt class="text-steel">Security Integration</dt>
+              <dd class="mt-1 text-xl font-semibold text-ink">Built-In</dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-4">
+              <dt class="text-steel">Deployment Model</dt>
+              <dd class="mt-1 text-xl font-semibold text-ink">On-Ground</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+      </main>
+    </section>
+
+    <div class="relative mx-auto max-w-6xl px-5 pb-14 md:px-8 md:pb-20">
+      <h3 class="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Core Value Pillars</h3>
+      <p class="mt-2 max-w-2xl text-sm text-steel sm:text-base">Hover or focus each card to view details.</p>
+
+      <div class="pillar-grid mt-8 grid gap-5 md:grid-cols-3">
+        <article class="pillar-card">
+          <div class="pillar-inner">
+            <div class="pillar-face">
+              <p class="text-xs font-semibold uppercase tracking-[0.15em] text-accent">Pillar 01</p>
+              <h4 class="mt-3 font-display text-xl font-semibold text-ink">Unified Integrations</h4>
+            </div>
+            <div class="pillar-face pillar-back">
+              <p class="text-sm leading-6 text-slate-700">A single point of contact for hardware, software, and networking.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-inner">
+            <div class="pillar-face">
+              <p class="text-xs font-semibold uppercase tracking-[0.15em] text-accent">Pillar 02</p>
+              <h4 class="mt-3 font-display text-xl font-semibold text-ink">Institutional Scale</h4>
+            </div>
+            <div class="pillar-face pillar-back">
+              <p class="text-sm leading-6 text-slate-700">Built to handle the demands of enterprise and government environments.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-inner">
+            <div class="pillar-face">
+              <p class="text-xs font-semibold uppercase tracking-[0.15em] text-accent">Pillar 03</p>
+              <h4 class="mt-3 font-display text-xl font-semibold text-ink">Future-Ready Tech</h4>
+            </div>
+            <div class="pillar-face pillar-back">
+              <p class="text-sm leading-6 text-slate-700">Deploying scalable solutions from cloud architecture to physical security.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const fluidBg = document.querySelector(".fluid-bg");
+    const fluidHero = document.querySelector("[data-fluid-hero]");
+    const notifyForm = document.getElementById("notifyForm");
+    const notifyButton = document.getElementById("notifyButton");
+    const notifyStatus = document.getElementById("notifyStatus");
+    const emailInput = document.getElementById("email");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("hidden");
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+    });
+
+    if (fluidBg && fluidHero && window.matchMedia("(pointer: fine)").matches) {
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+
+      const renderFluid = () => {
+        currentX += (targetX - currentX) * 0.085;
+        currentY += (targetY - currentY) * 0.085;
+
+        fluidBg.style.setProperty("--fluid-x", `${currentX.toFixed(2)}px`);
+        fluidBg.style.setProperty("--fluid-y", `${currentY.toFixed(2)}px`);
+        requestAnimationFrame(renderFluid);
+      };
+
+      fluidHero.addEventListener("pointermove", (event) => {
+        const rect = fluidHero.getBoundingClientRect();
+        const xRatio = (event.clientX - rect.left) / rect.width - 0.5;
+        const yRatio = (event.clientY - rect.top) / rect.height - 0.5;
+        targetX = xRatio * 95;
+        targetY = yRatio * 72;
+      });
+
+      fluidHero.addEventListener("pointerleave", () => {
+        targetX = 0;
+        targetY = 0;
+      });
+
+      renderFluid();
+    }
+
+    if (notifyForm && notifyButton && notifyStatus && emailInput) {
+      notifyForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = emailInput.value.trim();
+        if (!email) {
+          notifyStatus.textContent = "Enter a valid email address.";
+          notifyStatus.className = "mt-3 text-sm text-accent";
+          return;
+        }
+
+        notifyButton.disabled = true;
+        notifyButton.textContent = "Sending...";
+        notifyStatus.textContent = "";
+
+        try {
+          const response = await fetch("/api/notify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+          });
+
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data.error || "Subscription failed.");
+          }
+
+          notifyStatus.textContent = "Success. Check your inbox for confirmation.";
+          notifyStatus.className = "mt-3 text-sm text-green-700";
+          notifyForm.reset();
+        } catch (error) {
+          notifyStatus.textContent = error.message || "Something went wrong. Please try again.";
+          notifyStatus.className = "mt-3 text-sm text-accent";
+        } finally {
+          notifyButton.disabled = false;
+          notifyButton.textContent = "Notify Me";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
