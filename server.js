@@ -44,6 +44,14 @@ app.use(express.static(path.join(__dirname)));
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+app.get("/health", (_req, res) => {
+  res.status(200).json({ ok: true, service: "kao-notify-api" });
+});
+
+app.get("/api/notify", (_req, res) => {
+  res.status(405).json({ error: "Use POST /api/notify" });
+});
+
 function toDisplayName(email) {
   const localPart = email.split("@")[0] || "";
   const cleaned = localPart.replace(/[._-]+/g, " ").trim();
