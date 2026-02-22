@@ -17,9 +17,25 @@ if (resendApiKey) {
 }
 
 app.use(express.json());
+
+const allowedOrigins = [
+  "https://kaoglobal.in",
+  "https://www.kaoglobal.in",
+  "https://api.kaoglobal.in",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500"
+];
+
 app.use(
   cors({
-    origin: ["https://kaoglobal.in", "https://www.kaoglobal.in"],
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("CORS blocked for this origin."));
+    },
     methods: ["GET", "POST"],
     credentials: false
   })
