@@ -135,6 +135,12 @@ app.post("/api/notify", async (req, res) => {
   }
 });
 
+app.use((err, _req, res, _next) => {
+  console.error("Unhandled server error:", err);
+  const status = err && err.message === "CORS blocked for this origin." ? 403 : 500;
+  return res.status(status).json({ error: err.message || "Internal server error." });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
