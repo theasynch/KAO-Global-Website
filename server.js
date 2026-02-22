@@ -18,28 +18,28 @@ if (resendApiKey) {
 
 app.use(express.json());
 
-const allowedOrigins = [
-  "https://kaoglobal.in",
-  "https://www.kaoglobal.in",
-  "https://api.kaoglobal.in",
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  "http://localhost:5500",
-  "http://127.0.0.1:5500"
-];
+const allowOrigin = (origin) => {
+  if (!origin) return true;
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error("CORS blocked for this origin."));
-    },
-    methods: ["GET", "POST"],
-    credentials: false
-  })
-);
+  if (/^https:\/\/([a-z0-9-]+\.)*kaoglobal\.in$/i.test(origin)) return true;
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) return true;
+
+  return false;
+};
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (allowOrigin(origin)) return callback(null, true);
+    return callback(new Error("CORS blocked for this origin."));
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.static(path.join(__dirname)));
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
