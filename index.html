@@ -393,6 +393,13 @@
         </article>
       </div>
     </div>
+
+    <footer class="border-t border-slate-200/80 bg-white/70">
+      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between md:px-8">
+        <p>&copy; <span id="footerYear"></span> KAO Global Consulting Private Limited</p>
+        <p>Infrastructure. Networking. Secure Deployments.</p>
+      </div>
+    </footer>
   </div>
 
   <script>
@@ -492,6 +499,11 @@
           notifyButton.textContent = "Notify Me";
         }
       });
+    }
+
+    const footerYear = document.getElementById("footerYear");
+    if (footerYear) {
+      footerYear.textContent = String(new Date().getFullYear());
     }
   </script>
 </body>
