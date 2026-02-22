@@ -3,6 +3,8 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const { Resend } = require("resend");
+console.log("BOOT_KAO_API_v1");
+
 
 dotenv.config();
 
