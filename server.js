@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const { Resend } = require("resend");
 
 dotenv.config();
@@ -16,6 +17,13 @@ if (resendApiKey) {
 }
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["https://kaoglobal.in", "https://www.kaoglobal.in"],
+    methods: ["GET", "POST"],
+    credentials: false
+  })
+);
 app.use(express.static(path.join(__dirname)));
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
