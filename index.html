@@ -211,6 +211,86 @@
       background: linear-gradient(150deg, rgba(204, 23, 23, 0.1), rgba(255, 255, 255, 0.98));
     }
 
+    .menu-toggle {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+    }
+
+    .menu-lines {
+      position: relative;
+      width: 20px;
+      height: 14px;
+    }
+
+    .menu-lines span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #0b0f19;
+      border-radius: 999px;
+      transform-origin: center;
+      transition: transform 260ms ease, opacity 220ms ease, top 260ms ease;
+    }
+
+    .menu-lines span:nth-child(1) { top: 0; }
+    .menu-lines span:nth-child(2) { top: 6px; }
+    .menu-lines span:nth-child(3) { top: 12px; }
+
+    #menuButton.is-open .menu-lines span:nth-child(1) {
+      top: 6px;
+      transform: rotate(45deg);
+    }
+
+    #menuButton.is-open .menu-lines span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0.5);
+    }
+
+    #menuButton.is-open .menu-lines span:nth-child(3) {
+      top: 6px;
+      transform: rotate(-45deg);
+    }
+
+    #mobileMenu {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #mobileMenu ul li {
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 220ms ease, transform 300ms ease;
+    }
+
+    #mobileMenu.menu-open ul li {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #mobileMenu.menu-closing ul li {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    #mobileMenu.menu-open ul li:nth-child(1) { transition-delay: 40ms; }
+    #mobileMenu.menu-open ul li:nth-child(2) { transition-delay: 90ms; }
+    #mobileMenu.menu-open ul li:nth-child(3) { transition-delay: 140ms; }
+    #mobileMenu.menu-open ul li:nth-child(4) { transition-delay: 190ms; }
+    #mobileMenu.menu-open ul li:nth-child(5) { transition-delay: 240ms; }
+
+    #mobileMenu.menu-closing ul li:nth-child(1) { transition-delay: 240ms; }
+    #mobileMenu.menu-closing ul li:nth-child(2) { transition-delay: 190ms; }
+    #mobileMenu.menu-closing ul li:nth-child(3) { transition-delay: 140ms; }
+    #mobileMenu.menu-closing ul li:nth-child(4) { transition-delay: 90ms; }
+    #mobileMenu.menu-closing ul li:nth-child(5) { transition-delay: 40ms; }
+
     @media (prefers-reduced-motion: reduce) {
       .pillar-inner {
         transition: none;
@@ -220,6 +300,16 @@
       .pillar-card:focus-within .pillar-inner {
         transform: none;
       }
+
+      #mobileMenu ul li {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      #mobileMenu {
+        transition: none;
+      }
     }
   </style>
 </head>
@@ -228,20 +318,22 @@
 
     <header class="relative border-b border-slate-200/70 bg-white/90 backdrop-blur">
       <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8" aria-label="Main">
-        <a href="index.html" class="kao-logo" aria-label="KAO Global Consulting Home">
-          <span class="kao-word" aria-hidden="true">
-            <span>K</span><span>A</span><span class="o">O</span>
-          </span>
-          <span class="kao-sub">GLOBAL CONSULTING</span>
+        <a href="index.html" class="inline-flex items-center" aria-label="KAO Global Consulting Home">
+          <img src="./logo.png" alt="KAO Global Consulting Logo" class="h-14 w-auto object-contain" />
         </a>
 
         <button
           id="menuButton"
-          class="inline-flex items-center rounded-md border border-slate-300 px-3 py-2 text-sm font-medium md:hidden"
+          class="menu-toggle md:hidden"
           aria-expanded="false"
           aria-controls="mobileMenu"
+          aria-label="Toggle navigation menu"
         >
-          Menu
+          <span class="menu-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
 
         <ul class="hidden items-center gap-8 text-sm font-medium md:flex">
@@ -253,7 +345,7 @@
         </ul>
       </nav>
 
-      <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white md:hidden">
+      <div id="mobileMenu" class="relative left-0 right-0 top-full z-50 hidden border-t border-slate-200 bg-white shadow-lg md:hidden">
         <ul class="mx-auto flex max-w-6xl flex-col px-5 py-3 text-sm font-medium md:px-8">
           <li><a class="block rounded-md px-2 py-2 transition hover:bg-slate-100" href="About Us/index.html">About Us</a></li>
           <li><a class="block rounded-md px-2 py-2 transition hover:bg-slate-100" href="events/index.html">Events</a></li>
@@ -394,10 +486,52 @@
       </div>
     </div>
 
-    <footer class="border-t border-slate-200/80 bg-white/70">
-      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between md:px-8">
-        <p>&copy; <span id="footerYear"></span> KAO Global Consulting Private Limited</p>
-        <p>Infrastructure. Networking. Secure Deployments.</p>
+    <footer class="border-t border-slate-200 bg-[#e9edf3]">
+      <div class="mx-auto grid max-w-6xl gap-12 px-5 py-12 md:grid-cols-3 md:gap-10 md:px-8 md:py-14">
+        <section>
+          <div class="flex items-start">
+            <img src="./logo.png" alt="KAO Global Consulting Logo" class="h-16 w-auto object-contain" />
+          </div>
+          <p class="mt-6 max-w-sm text-lg leading-9 tracking-[0.02em] text-slate-800">
+            Our mission is to deliver reliable IT products and services with strong execution standards, helping organizations stay ahead in a fast-changing digital landscape.
+          </p>
+        </section>
+
+        <section class="md:justify-self-center">
+          <h4 class="font-display text-3xl font-semibold tracking-tight text-ink">Quick Links</h4>
+          <ul class="mt-8 space-y-1 text-xl font-semibold">
+            <li><a href="index.html" class="text-[#1f4ed8] transition hover:text-accent">Home</a></li>
+            <li><a href="About Us/index.html" class="text-[#1f4ed8] transition hover:text-accent">About Us</a></li>
+            <li><a href="#" class="text-[#1f4ed8] transition hover:text-accent">Services</a></li>
+            <li><a href="#" class="text-[#1f4ed8] transition hover:text-accent">Solutions</a></li>
+            <li><a href="#" class="text-[#1f4ed8] transition hover:text-accent">Contact Us</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h4 class="font-display text-3xl font-semibold tracking-tight text-ink">Contact Us</h4>
+          <div class="mt-8 space-y-3 text-lg leading-8 text-slate-900">
+            <div>
+              <p class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">Address</p>
+              <p>401/B, Ganraj Residency, Lane No. 13K, Tingre Nagar, Vidyanagar, Pune, Maharashtra - 411032</p>
+            </div>
+            <div>
+              <p class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">Phone</p>
+              <p>+91 92234 47484</p>
+              <p>+91 97695 58255</p>
+            </div>
+            <div>
+              <p class="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">Email</p>
+              <p>info@kaoglobal.in</p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="border-t border-slate-300/70">
+        <div class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between md:px-8">
+          <p>&copy; <span id="footerYear"></span> KAO Global Consulting Private Limited</p>
+          <p>Infrastructure. Networking. Secure Deployments.</p>
+        </div>
       </div>
     </footer>
   </div>
@@ -413,10 +547,57 @@
     const emailInput = document.getElementById("email");
     const isKaoDomain = /(^|\.)kaoglobal\.in$/i.test(window.location.hostname);
     const notifyEndpoint = isKaoDomain ? "https://api.kaoglobal.in/api/notify" : "/api/notify";
+    let closeMenuTimer = null;
+
+    const openMobileMenu = () => {
+      if (closeMenuTimer) {
+        clearTimeout(closeMenuTimer);
+        closeMenuTimer = null;
+      }
+      mobileMenu.classList.remove("hidden", "menu-closing");
+      mobileMenu.style.maxHeight = "0px";
+      mobileMenu.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        mobileMenu.classList.add("menu-open");
+        mobileMenu.style.maxHeight = `${mobileMenu.scrollHeight}px`;
+      });
+      menuButton.classList.add("is-open");
+      menuButton.setAttribute("aria-expanded", "true");
+    };
+
+    const closeMobileMenu = () => {
+      mobileMenu.style.maxHeight = `${mobileMenu.scrollHeight}px`;
+      mobileMenu.classList.remove("menu-open");
+      mobileMenu.classList.add("menu-closing");
+      requestAnimationFrame(() => {
+        mobileMenu.style.maxHeight = "0px";
+      });
+      menuButton.classList.remove("is-open");
+      menuButton.setAttribute("aria-expanded", "false");
+
+      closeMenuTimer = setTimeout(() => {
+        mobileMenu.classList.add("hidden");
+        mobileMenu.classList.remove("menu-closing");
+        mobileMenu.style.maxHeight = "";
+        closeMenuTimer = null;
+      }, 580);
+    };
 
     menuButton.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("hidden");
-      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      const isOpen = !mobileMenu.classList.contains("hidden");
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 767px)").matches && !mobileMenu.classList.contains("hidden")) {
+          closeMobileMenu();
+        }
+      });
     });
 
     if (fluidBg && fluidHero && window.matchMedia("(pointer: fine)").matches) {
